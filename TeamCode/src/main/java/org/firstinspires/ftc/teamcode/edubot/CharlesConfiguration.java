@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.edubot;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -26,11 +27,11 @@ public class CharlesConfiguration extends RobotConfiguration {
 
     public DcMotor armMotor;
 
-    public Servo armServo;
+    public CRServo armServo;
 
     public TouchSensor touchSensor;
 
-    public ColorSensor colorSensor;
+//    public ColorSensor colorSensor;
 
     BNO055IMU imu;
 
@@ -80,7 +81,7 @@ public class CharlesConfiguration extends RobotConfiguration {
 
         armMotor = (DcMotor) getHardwareOn("armMotor", hardwareMap.dcMotor);
         armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        armServo = (Servo) getHardwareOn("gripperServo", hardwareMap.servo);
+        armServo = (CRServo) getHardwareOn("gripperServo", hardwareMap.crservo);
         touchSensor = (TouchSensor) getHardwareOn("touchSensor", hardwareMap.touchSensor);
 
         Telemetry.Item armItem = telemetry.addData("Arm: ", new Func<String>() {
@@ -92,16 +93,16 @@ public class CharlesConfiguration extends RobotConfiguration {
         armItem.setRetained(true);
 
 
-        colorSensor = (ColorSensor) getHardwareOn("colourSensor", hardwareMap.colorSensor);
-        colorSensor.enableLed(false);
-
-        Telemetry.Item colourItem = telemetry.addData("Colour Sensor: ", new Func<String>() {
-            @Override
-            public String value() {
-                return String.format("R: %d  G: %d  B: %d  A: %d", colorSensor.red(), colorSensor.green(), colorSensor.blue(), colorSensor.alpha());
-            }
-        });
-        colourItem.setRetained(true);
+//        colorSensor = (ColorSensor) getHardwareOn("colourSensor", hardwareMap.colorSensor);
+//        colorSensor.enableLed(false);
+//
+//        Telemetry.Item colourItem = telemetry.addData("Colour Sensor: ", new Func<String>() {
+//            @Override
+//            public String value() {
+//                return String.format("R: %d  G: %d  B: %d  A: %d", colorSensor.red(), colorSensor.green(), colorSensor.blue(), colorSensor.alpha());
+//            }
+//        });
+//        colourItem.setRetained(true);
 
 
         // Set up the parameters with which we will use our IMU. Note that integration
