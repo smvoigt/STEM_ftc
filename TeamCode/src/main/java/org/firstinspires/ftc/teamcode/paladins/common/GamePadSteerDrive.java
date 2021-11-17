@@ -47,21 +47,21 @@ public class GamePadSteerDrive extends PaladinsComponent {
     public void update() {
 
 //        float scalePower = scaleTriggerPower(gamepad.left_trigger - gamepad.right_trigger);
-        float scalePower = scaleTriggerPower(-gamepad.left_stick_y);
+        float scalePower = scaleTriggerPower(gamepad.left_stick_y);
 
         float steer = scaleSteerPower(gamepad.right_stick_x);
         float leftPower;
         float rightPower;
         if (scalePower == 0.0f) {
-            leftPower = steer;
-            rightPower = -steer;
+            leftPower = steer * 0.5f;
+            rightPower = -steer * 0.5f;
         } else {
-            leftPower = scalePower * ((steer < 0) ? 1.0f + steer : 1.0f);
-            rightPower = scalePower * ((steer > 0) ? 1.0f - steer : 1.0f);
+            leftPower = scalePower * ((steer > 0) ? 1.0f - steer : 1.0f);
+            rightPower = scalePower * ((steer < 0) ? 1.0f + steer : 1.0f);
         }
 
-        leftMotor.setPower(-leftPower);
-        rightMotor.setPower(-rightPower);
+        leftMotor.setPower(leftPower);
+        rightMotor.setPower(rightPower);
 
         leftPowerItem.setValue("%.2f", leftPower);
         rightPowerItem.setValue("%.2f", rightPower);
