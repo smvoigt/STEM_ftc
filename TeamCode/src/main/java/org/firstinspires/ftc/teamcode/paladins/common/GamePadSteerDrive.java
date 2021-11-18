@@ -35,9 +35,9 @@ public class GamePadSteerDrive extends PaladinsComponent {
         leftPowerItem.setRetained(true);
         rightPowerItem = getOpMode().telemetry.addData("Right power", "%.2f", 0.0f);
         rightPowerItem.setRetained(true);
-        steerPowerItem = getOpMode().telemetry.addData("steer power", "%.2f", 0.0f);
+        steerPowerItem = getOpMode().telemetry.addData("Steer power", "%.2f", 0.0f);
         steerPowerItem.setRetained(true);
-        rawPowerItem = getOpMode().telemetry.addData("raw power", "%.2f", 0.0f);
+        rawPowerItem = getOpMode().telemetry.addData("Raw power", "%.2f", 0.0f);
         rawPowerItem.setRetained(true);
     }
 
@@ -53,11 +53,11 @@ public class GamePadSteerDrive extends PaladinsComponent {
         float leftPower;
         float rightPower;
         if (scalePower == 0.0f) {
-            leftPower = steer * 0.5f;
-            rightPower = -steer * 0.5f;
+            leftPower = -steer * 0.5f;
+            rightPower = steer * 0.5f;
         } else {
-            leftPower = scalePower * ((steer > 0) ? 1.0f - steer : 1.0f);
-            rightPower = scalePower * ((steer < 0) ? 1.0f + steer : 1.0f);
+            leftPower = scalePower * ((steer < 0) ? 1.0f + steer : 1.0f);
+            rightPower = scalePower * ((steer > 0) ? 1.0f - steer : 1.0f);
         }
 
         leftMotor.setPower(leftPower);
