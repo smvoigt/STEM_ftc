@@ -16,8 +16,8 @@ public abstract class RobotConfiguration {
     /**
      * assign your class instance variables to the saved device names in the hardware map
      *
-     * @param hardwareMap
-     * @param telemetry
+     * @param hardwareMap the hardware map
+     * @param telemetry the telemetry object
      */
     abstract protected void init(HardwareMap hardwareMap, Telemetry telemetry);
 
@@ -33,18 +33,20 @@ public abstract class RobotConfiguration {
     /**
      * setter method for telemetry utility
      *
-     * @param {@link TelemetryUtil}
+     * @param telemetry the telemetry object
+     *
+     *
      */
     protected void setTelemetry(Telemetry telemetry) {
         this.telemetry = telemetry;
     }
 
     /**
-     * Convenience method for reading the devce from the hardwareMap without having to check for exceptions
+     * Convenience method for reading the device from the hardwareMap without having to check for exceptions
      *
-     * @param name                  name of device saved in the configuration file
-     * @param hardwareDeviceMapping
-     * @return
+     * @param name                   name of device saved in the configuration file
+     * @param hardwareDeviceMapping  mapping object
+     * @return the hardware device if found
      */
     protected HardwareDevice getHardwareOn(String name, Object hardwareDeviceMapping) {
 

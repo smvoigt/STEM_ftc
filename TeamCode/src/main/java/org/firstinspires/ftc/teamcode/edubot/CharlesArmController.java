@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.edubot;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.robotcore.external.Func;
@@ -23,13 +24,17 @@ public class CharlesArmController extends PaladinsComponent {
     private final ButtonControl armClawCloseControl;
 
     private final DcMotor armMotor;
-    private final CRServo clawServo;
+    private final Servo clawServo;
     private final Gamepad gamepad;
     private final TouchSensor stopSensor;
     private final float motorPower;
     private final Telemetry.Item armPowerItem;
     private final Telemetry.Item servePowerItem;
     private boolean showtelemetry = false;
+
+    private float clawPositions[] = {0.2f, 0.3f, 0.5f, 0.6f, 0.8f, 1.0f};
+    private int clawPosition = 0;
+    private ButtonControl lastClawButton = null;
 
     /**
      * Constructor for operation.  Telemetry enabled by default.
@@ -47,8 +52,8 @@ public class CharlesArmController extends PaladinsComponent {
         this.gamepad = gamepad;
         this.armMotor = config.armMotor;
         this.clawServo = config.armServo;
-        this.armUpButtonControl = ButtonControl.DPAD_UP;
-        this.armDownButtonControl = ButtonControl.DPAD_DOWN;
+        this.armUpButtonControl = ButtonControl.Y;
+        this.armDownButtonControl = ButtonControl.X;
         this.armClawOpenControl = ButtonControl.A;
         this.armClawCloseControl = ButtonControl.B;
         this.motorPower = power;
@@ -66,7 +71,7 @@ public class CharlesArmController extends PaladinsComponent {
             servePowerItem = opMode.telemetry.addData("servo " + armClawOpenControl.name() + "/" + armClawCloseControl.name(), new Func<Double>() {
                 @Override
                 public Double value() {
-                    return clawServo.getPower();
+                    return clawServo.getPosition();
                 }
             });
             servePowerItem.setRetained(true);            
@@ -99,11 +104,19 @@ public class CharlesArmController extends PaladinsComponent {
 
         // Claw
         if (buttonPressed(gamepad, armClawOpenControl)) {
-            clawServo.setPower(0.9f);
+            if (lastClawButton != armClawOpenControl) {
+                clawPosition++;
+            }
+            lastClawButton = armClawOpenControl;
         } else if (buttonPressed(gamepad, armClawCloseControl)) {
-            clawServo.setPower(-0.9f);
+            if (lastClawButton != armClawCloseControl) {
+                clawPosition--;
+            }
+            lastClawButton = armClawCloseControl;
         } else {
-            clawServo.setPower(0.0f);
+            lastClawButton = null;
         }
+        clawPosition = clawPosition < 0 ? 0 : (clawPosition >= clawPositions.length) ? clawPositions.length - 1 : clawPosition;
+        clawServo.setPosition(clawPositions[clawPosition]);
     }
 }

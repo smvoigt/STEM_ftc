@@ -27,7 +27,7 @@ public class CharlesConfiguration extends RobotConfiguration {
 
     public DcMotor armMotor;
 
-    public CRServo armServo;
+    public Servo armServo;
 
     public TouchSensor touchSensor;
 
@@ -81,7 +81,7 @@ public class CharlesConfiguration extends RobotConfiguration {
 
         armMotor = (DcMotor) getHardwareOn("armMotor", hardwareMap.dcMotor);
         armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        armServo = (CRServo) getHardwareOn("gripperServo", hardwareMap.crservo);
+        armServo = (Servo) getHardwareOn("gripperServo", hardwareMap.servo);
         touchSensor = (TouchSensor) getHardwareOn("touchSensor", hardwareMap.touchSensor);
 
         Telemetry.Item armItem = telemetry.addData("Arm: ", new Func<String>() {
