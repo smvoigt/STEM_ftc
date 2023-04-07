@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.paladins.common.PaladinsOpMode;
 import org.firstinspires.ftc.teamcode.paladins.common.TankDrive;
 
 
-@TeleOp(name = "EduBot TankDrive")
+//@TeleOp(name = "EduBot TankDrive")
 public class EduBotTeleOpTankDrive extends PaladinsOpMode {
     private EduBotConfiguration config;
     private TankDrive drive;
