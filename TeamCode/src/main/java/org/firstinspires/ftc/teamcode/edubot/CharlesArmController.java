@@ -103,9 +103,9 @@ public class CharlesArmController extends PaladinsComponent {
     public void update() {
         // Arm
         if (buttonPressed(gamepad, armUpButtonControl)) {
-            if (armMotor.getCurrentPosition() < 700) {
+            if (armMotor.getCurrentPosition() < 600) {
                 armMotor.setPower(motorPower);
-            } else if (armMotor.getCurrentPosition() < 900) {
+            } else if (armMotor.getCurrentPosition() < 700) {
                 armMotor.setPower(motorPower/2.0);
             } else {
                 armMotor.setPower(0.0);
