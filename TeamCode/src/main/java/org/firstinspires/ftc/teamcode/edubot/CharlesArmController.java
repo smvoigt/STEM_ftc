@@ -29,6 +29,7 @@ public class CharlesArmController extends PaladinsComponent {
     private final TouchSensor stopSensor;
     private final float motorPower;
     private final Telemetry.Item armPowerItem;
+    private final Telemetry.Item armPosItem;
     private final Telemetry.Item servePowerItem;
     private boolean showtelemetry = false;
 
@@ -67,6 +68,14 @@ public class CharlesArmController extends PaladinsComponent {
                 }
             });
             armPowerItem.setRetained(true);
+
+            armPosItem = opMode.telemetry.addData("Arm Pos" + armUpButtonControl.name() + "/" + armDownButtonControl.name(), new Func<Integer>() {
+                @Override
+                public Integer value() {
+                    return armMotor.getCurrentPosition();
+                }
+            });
+            armPosItem.setRetained(true);
             
             servePowerItem = opMode.telemetry.addData("servo " + armClawOpenControl.name() + "/" + armClawCloseControl.name(), new Func<Double>() {
                 @Override
@@ -77,6 +86,7 @@ public class CharlesArmController extends PaladinsComponent {
             servePowerItem.setRetained(true);            
         } else {
             armPowerItem = null;
+            armPosItem = null;
             servePowerItem = null;
         }
     }
@@ -93,9 +103,17 @@ public class CharlesArmController extends PaladinsComponent {
     public void update() {
         // Arm
         if (buttonPressed(gamepad, armUpButtonControl)) {
-            armMotor.setPower(motorPower);
+            if (armMotor.getCurrentPosition() < 700) {
+                armMotor.setPower(motorPower);
+            } else if (armMotor.getCurrentPosition() < 900) {
+                armMotor.setPower(motorPower/2.0);
+            } else {
+                armMotor.setPower(0.0);
+            }
         } else if (stopSensor != null && stopSensor.isPressed()) {
             armMotor.setPower(0.0);
+            armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         } else if (buttonPressed(gamepad, armDownButtonControl)) {
             armMotor.setPower(-motorPower);
         } else {
