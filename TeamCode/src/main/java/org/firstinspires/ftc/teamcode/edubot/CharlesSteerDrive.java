@@ -4,10 +4,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.paladins.common.GamePadSteerDrive;
 import org.firstinspires.ftc.teamcode.paladins.common.PaladinsOpMode;
-import org.firstinspires.ftc.teamcode.paladins.common.TankDrive;
 
 
-@TeleOp(name = "ScienceAlive SteerDrive")
+@TeleOp(name = "SteerDrive")
 public class CharlesSteerDrive extends PaladinsOpMode {
     private CharlesConfiguration config;
     private GamePadSteerDrive drive;
@@ -18,7 +17,7 @@ public class CharlesSteerDrive extends PaladinsOpMode {
         config = CharlesConfiguration.newConfig(hardwareMap, telemetry);
 
         drive = new GamePadSteerDrive(this, gamepad1, config.leftMotor, config.rightMotor);
-        armLift = new CharlesArmController(this, gamepad1, config,0.4f, true);
+        armLift = new CharlesArmController(this, gamepad1, config, 0.4f, true);
     }
 
     @Override

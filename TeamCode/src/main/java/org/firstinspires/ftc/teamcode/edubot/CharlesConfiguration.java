@@ -70,7 +70,7 @@ public class CharlesConfiguration extends RobotConfiguration {
         rightMotor = (DcMotor) getHardwareOn("rightMotor", hardwareMap.dcMotor);
         rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        Telemetry.Item motorsItem = telemetry.addData("Drive Motors: ", new Func<String>() {
+        Telemetry.Item motorsItem = telemetry.addData("Drive Motors", new Func<String>() {
             @Override
             public String value() {
                 return String.format("Left: %.2f  Right: %.2f", leftMotor.getPower(), rightMotor.getPower());
@@ -84,7 +84,7 @@ public class CharlesConfiguration extends RobotConfiguration {
         armServo = (Servo) getHardwareOn("gripperServo", hardwareMap.servo);
         touchSensor = (TouchSensor) getHardwareOn("touchSensor", hardwareMap.touchSensor);
 
-        Telemetry.Item armItem = telemetry.addData("Arm: ", new Func<String>() {
+        Telemetry.Item armItem = telemetry.addData("Arm", new Func<String>() {
             @Override
             public String value() {
                 return String.format("Power: %.2f  Touch: %b", armMotor.getPower(), touchSensor.isPressed());
