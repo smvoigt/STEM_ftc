@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.paladins.common;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.BuildConfig;
 import org.firstinspires.ftc.teamcode.paladins.utils.MovingAverageTimer;
 
 /**
@@ -53,6 +54,8 @@ public abstract class PaladinsOpMode extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         try {
+            telemetry.addData("GIT Version", BuildConfig.GIT_VERSION).setRetained(true);
+
             try {
                 setup();
                 onInit();
@@ -60,6 +63,7 @@ public abstract class PaladinsOpMode extends LinearOpMode {
                 ErrorUtil.handleCatchAllException(e, telemetry);
             }
 
+            telemetry.update();
             waitForStart();
 
             onStart();
@@ -90,9 +94,7 @@ public abstract class PaladinsOpMode extends LinearOpMode {
     }
 
     private void setup() {
-
         movingAverageTimer = new MovingAverageTimer(100);
-
     }
 
     /**
